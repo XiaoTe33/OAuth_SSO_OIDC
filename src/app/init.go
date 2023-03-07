@@ -24,7 +24,7 @@ func initBackEndRouters() {
 	r := gin.Default()
 	r.MaxMultipartMemory = 3 << 20
 	r.Use(Cors())
-
+	r.LoadHTMLGlob("./src/static/github_login_page/*")
 	u := r.Group("/user") //用户模块
 
 	{
@@ -129,6 +129,10 @@ func initBackEndRouters() {
 	}
 
 	r.GET("/RESTART/:yes", utils.Restart) //数据重开
+
+	gl := r.Group("/githubLogin")
+	gl.GET("/homePage", homePage)
+	gl.GET("/login", githubLogin)
 
 	_ = r.Run(conf.BackEndPort)
 }

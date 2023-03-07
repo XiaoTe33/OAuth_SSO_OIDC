@@ -70,3 +70,7 @@ func Md5Encoded(pre string) string {
 func Md5EncodedWithTime(pre string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(pre+fmt.Sprintf("%b", time2.Now().Nanosecond()))))
 }
+
+func CheckIsRegisteredUsername(username string) bool {
+	return dao.QueryUserByUsername(username) != model.User{}
+}
